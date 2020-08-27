@@ -1,0 +1,136 @@
+
+/* Header */
+
+header {
+  background: wheat;
+  height: 220px;
+  width: 100%;
+  
+}
+
+header img {
+  float: none;
+  
+}
+
+/* body */
+
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: wheat;
+  
+}
+
+/* introduction section */
+
+.introduction {
+  background: darkolivegreen;
+  border: solid black;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: center;
+
+}
+
+/* Main news */
+
+.big-news {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.big-news div {
+  margin: 5px;
+  align-content: space-between;
+  justify-content: center;
+  border: 1px solid;
+  padding: 2px;
+  box-shadow: 2px 2px;
+}
+
+.big-news img {
+  width: 90%;
+  
+}
+
+div:hover {
+  background-color: whitesmoke;
+  opacity: 0.5;
+}
+
+/* Other news grid */
+
+.other-news {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.other-news div {
+  margin: 10px;
+  align-content: space-between;
+  justify-content: center;
+  border: 1px solid;
+  padding: 2px;
+  box-shadow: 2px 2px;
+}
+
+.other-news img {
+  width: 90%;
+}
+
+/* footer */
+
+footer {
+  height: 50px;
+  width: 100%;
+  border: solid black;
+  background: darkolivegreen;
+
+}
+
+footer h2 {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: center;
+  
+}
+
+/* media tablet*/
+
+@media (min-width: 667px) and (max-width: 1024px) {
+
+  .other-news {
+    flex-direction: row;
+    flex-wrap: wrap;
+  
+  }
+
+  .other-news div {
+   width: 40%;
+   height: 50%;
+   margin: 1px;
+  
+  }
+
+}
+
+/* media desktop*/
+
+@media (min-width: 1025px) {
+
+  .other-news {
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+  }
+  
+  .other-news div {
+    width: 20%;
+    height: 40%;
+    margin: 1px;
+  
+  }
+}
