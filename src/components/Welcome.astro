@@ -1,0 +1,204 @@
+---
+import astroLogo from "../assets/astro.svg";
+import background from "../assets/background.svg";
+---
+
+<div id="container">
+  <img id="background" src={background.src} alt="" fetchpriority="high" />
+  <main>
+    <section id="hero">
+      <h1>welcome to monkeybusiness101</h1>
+      <section id="links">
+        <a href="https://www.linkedin.com/in/maxforssen/"
+          >Linkedin <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 127.14 96.36"
+          >
+            <path
+              fill="currentColor"
+              d="M 5 3 C 3.895 3 3 3.895 3 5 L 3 19 C 3 20.105 3.895 21 5 21 L 19 21 C 20.105 21 21 20.105 21 19 L 21 5 C 21 3.895 20.105 3 19 3 L 5 3 z M 5 5 L 19 5 L 19 19 L 5 19 L 5 5 z M 7.7792969 6.3164062 C 6.9222969 6.3164062 6.4082031 6.8315781 6.4082031 7.5175781 C 6.4082031 8.2035781 6.9223594 8.7167969 7.6933594 8.7167969 C 8.5503594 8.7167969 9.0644531 8.2035781 9.0644531 7.5175781 C 9.0644531 6.8315781 8.5502969 6.3164062 7.7792969 6.3164062 z M 6.4765625 10 L 6.4765625 17 L 9 17 L 9 10 L 6.4765625 10 z M 11.082031 10 L 11.082031 17 L 13.605469 17 L 13.605469 13.173828 C 13.605469 12.034828 14.418109 11.871094 14.662109 11.871094 C 14.906109 11.871094 15.558594 12.115828 15.558594 13.173828 L 15.558594 17 L 18 17 L 18 13.173828 C 18 10.976828 17.023734 10 15.802734 10 C 14.581734 10 13.930469 10.406562 13.605469 10.976562 L 13.605469 10 L 11.082031 10 z"
+            ></path>
+          </svg>
+        </a>
+        <a href="https://github.com/monkeybusiness101"
+          >Github<svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 127.14 96.36"
+            ><path
+              fill="currentColor"
+              d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
+            ></path></svg
+          >
+        </a>
+      </section>
+    </section>
+  </main>
+</div>
+
+<style>
+  #background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(100px);
+  }
+
+  #container {
+    font-family: Inter, Roboto, "Helvetica Neue", "Arial Nova", "Nimbus Sans",
+      Arial, sans-serif;
+    height: 100%;
+  }
+
+  main {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #hero {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    justify-content: center;
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 22px;
+    margin-top: 0.25em;
+  }
+
+  #links {
+    display: flex;
+    gap: 16px;
+  }
+
+  #links a {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+    color: #111827;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  #links a:hover {
+    color: rgb(78, 80, 86);
+  }
+
+  #links a svg {
+    height: 1em;
+    margin-left: 8px;
+  }
+
+  #links a.button {
+    color: white;
+    background: linear-gradient(83.21deg, #3245ff 0%, #bc52ee 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 10px;
+  }
+
+  #links a.button:hover {
+    color: rgb(230, 230, 230);
+    box-shadow: none;
+  }
+
+  pre {
+    font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo,
+      Consolas, "DejaVu Sans Mono", monospace;
+    font-weight: normal;
+    background: linear-gradient(14deg, #d83333 0%, #f041ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+  }
+
+  h2 {
+    margin: 0 0 1em;
+    font-weight: normal;
+    color: #111827;
+    font-size: 20px;
+  }
+
+  p {
+    color: #4b5563;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.006em;
+    margin: 0;
+  }
+
+  code {
+    display: inline-block;
+    background:
+      linear-gradient(66.77deg, #f3cddd 0%, #f5cee7 100%) padding-box,
+      linear-gradient(155deg, #d83333 0%, #f041ff 18%, #f5cee7 45%) border-box;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 6px 8px;
+  }
+
+  .box {
+    padding: 16px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 16px;
+    border: 1px solid white;
+  }
+
+  #news {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    max-width: 300px;
+    text-decoration: none;
+    transition: background 0.2s;
+    backdrop-filter: blur(50px);
+  }
+
+  #news:hover {
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  @media screen and (max-height: 368px) {
+    #news {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    #container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #hero {
+      display: block;
+      padding-top: 10%;
+    }
+
+    #links {
+      flex-wrap: wrap;
+    }
+
+    #links a.button {
+      padding: 14px 18px;
+    }
+
+    #news {
+      right: 16px;
+      left: 16px;
+      bottom: 2.5rem;
+      max-width: 100%;
+    }
+
+    h1 {
+      line-height: 1.5;
+    }
+  }
+</style>
