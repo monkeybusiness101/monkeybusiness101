@@ -1,0 +1,17 @@
+source 'https://rubygems.org'
+
+ruby '3.4.2'
+
+gem 'sinatra'
+gem 'sinatra-contrib'
+gem 'json'
+gem 'puma'
+gem 'dotenv'
+gem 'rack-cors'
+gem 'rack'
+gem 'rackup'
+
+group :development do
+  gem 'pry'
+  gem 'rack-test'
+end 
