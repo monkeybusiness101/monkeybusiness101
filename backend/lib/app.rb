@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'json'
 require 'dotenv/load'
+require_relative 'api/base'
 
 # Enable CORS
 before do
@@ -15,12 +16,13 @@ options '*' do
   200
 end
 
-# Health check endpoint
-get '/health' do
-  "OK"
-end
+class App < Sinatra::Base
+  # Health check endpoint (outside of Grape API)
+  get '/health' do
+    "OK"
+  end
 
-# Sample endpoint
-get '/api/hello' do
-  "Hello World"
+  # Mount the Grape API
+  use Rack::Session::Cookie
+  run API::Base
 end 

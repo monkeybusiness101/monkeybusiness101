@@ -1,4 +1,4 @@
 require 'bundler'
-Bundler.require
+Bundler.setup(:default)
 
 require './lib/app' 

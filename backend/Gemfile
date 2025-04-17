@@ -10,6 +10,7 @@ gem 'dotenv'
 gem 'rack-cors'
 gem 'rack'
 gem 'rackup'
+gem 'grape'
 
 group :development do
   gem 'pry'
