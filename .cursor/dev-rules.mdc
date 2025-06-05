@@ -1,0 +1,259 @@
+---
+description: Good coding practive in mm-js
+globs: 
+alwaysApply: false
+---
+# Development Rules - Always Valid When Writing Code
+
+These rules should ALWAYS be followed when writing code in this monorepo. They guide consistent, secure, and maintainable code practices.
+
+## Repository Setup
+
+- This is a monorepo managed with `yarn` workspaces and orchestrated with `turborepo`.
+- When suggesting CLI commands, prefer to run them from the project's root using: `yarn workspace $PACKAGE $COMMAND $EXTRA_PARAMS`.
+
+## Principles / Standards/ Important instructions
+
+- Let errors surface explicitly rather than handling silently
+- Never create temporary solutions - focus on root cause fixes
+- Don't create fallback solutions - let systems crash for better error visibility
+- Document all features in blueprint files before implementation
+- Line Limits: A file must not exceed 420 lines - create more files
+- Type Safety: Use strong typing throughout the codebase
+- Document special or complex logic with comments/docstrings
+- When LLM/AI is adding comments: ALWAYS preserve existing inline comments and explicitly state "DO NOT REMOVE" for critical inline comments to prevent agentic AI from overriding functionality
+- never do type ignore or eslint disable
+- Separate features into focused packages
+- Make code easy to delete and move
+- Use component folders with index files for related logic
+- Import from component folders via index files, never directly from files
+- Use SWR for all data fetching - provides caching, revalidation, error handling
+
+## Component Architecture
+
+- DataHandler components: Handle side effects, API calls, state management - suffix with `DataHandler`
+- UI components: Pure presentation only - no data fetching, no side effects
+- DataHandlers compose UI components or other DataHandlers
+- UI components accept only specific data they need as props
+- DataHandlers should fetch their own data rather than receive via props
+- Never mix these responsibilities in a single component
+
+## Naming Conventions
+
+- Always use named exports, never default exports (except Next.js pages)
+- Components/Tests: PascalCase (`Header.tsx`, `TeamSettings.test.tsx`)
+- Hooks/Utils: camelCase (`useUser.ts`, `trackViewedPage.ts`)
+- Folders: kebab-case (`team-settings/`, `manage-members/`)
+- Group component files in folders with `index.ts`
+- Never create large barrel files that export unrelated components
+- Local handlers: prefix with `handle` (`handleClick`, `handleSubmit`)
+- Props: start with `on` (`onClick`, `onErrorMessage`, `onSubmit`)
+- Never mix business domain terms in UI component props
+- Follow TypeScript version specified in `package.json` devDependencies
+
+### Component Organization
+
+**ALWAYS** group component files in folders with `index.ts`:
+
+```
+src/components/
+├── example-component/
+│   ├── index.ts    │   ├── ExampleComponent.tsx        // Main component
+│   ├── ExampleComponent.test.tsx   // Tests
+│   ├── SubComponent.tsx            // Sub-components
+│   └── useExampleData.ts           // Component-specific hooks
+```
+
+## Hook Rules
+
+**ALWAYS** ensure hooks have only one responsibility. See [Examples: Hook Single Responsibility](#hook-single-responsibility).
+**ALWAYS** Single Responsibility
+
+- Ensure hooks have only one responsibility
+- Never nest data-fetching hooks inside other hooks
+- Always use SWR for data fetching in hooks
+- Use `useSWR` for GET requests and data fetching
+- Create dedicated fetcher functions for API calls
+- Use SWR mutations for POST/PUT/DELETE operations
+- Never create hooks for functions that don't use React hooks
+
+## Linter Error Handling
+
+- Never use any or eslint disable
+- Fix linter errors if solution is clear
+- Always start with `yarn workspace $PACKAGE lint --fix` for fixable ESLint errors
+- If too many attempts to fix, suggest several approaches to continue
+
+---
+
+# Examples
+
+### Named vs Default Exports
+
+```tsx
+// ✅ Good
+export function EmailSection() {
+  return <></>;
+}
+
+// ❌ Bad
+export default function EmailSection() {
+  return <></>;
+}
+```
+
+### Event Handler Naming
+
+```tsx
+// ✅ Good - Generic UI terms
+const Button = ({ onClick, title }: { onClick: MouseEventHandler; title: string }) =>
+
+// ❌ Bad - Business domain in UI
+const Button = ({ onQuestionClick, questionName }: { onQuestionClick: MouseEventHandler; questionName: string }) =>
+```
+
+### Component Composition
+
+```tsx
+// ✅ Good - Composable
+<Modal>
+  <ModalOpenButton>
+    <Button>Register</Button>
+  </ModalOpenButton>
+  <ModalContents>
+    <ModalTitle>Register</ModalTitle>
+    <LoginForm />
+  </ModalContents>
+</Modal>
+
+// ❌ Bad - Too many props
+<Modal
+  title="Register"
+  openButtonText="Register"
+  dismissable={true}
+  contents={<LoginForm />}
+/>
+```
+
+### Hook Single Responsibility
+
+```tsx
+// ✅ Good - Single purpose
+const useSeriesData = (seriesId: string) => {
+  return useSWR(`/api/series/${seriesId}`, fetcher);
+};
+
+// ❌ Bad - Multiple unrelated responsibilities
+const useDataForComponent = () => {
+  const seriesId = useSeriesId();
+  const series = useSeries(seriesId);
+  const questions = useQuestions();
+  const updateQuestion = (question) => postQuestionToBackend(question);
+  return { seriesId, series, questions, updateQuestion };
+};
+```
+
+### Hook Dependencies
+
+```tsx
+// ✅ Good - Pass dependencies as parameters
+const useProcessedData = (seriesId: string) => {
+  const { data } = useSWR(`/api/series/${seriesId}/processed`, fetcher);
+  return data;
+};
+
+// ❌ Bad - Nesting data hooks
+const useProcessedData = () => {
+  const series = useSeries(); // This creates unpredictable dependencies
+  const { data } = useSWR(`/api/series/${seriesId}/processed`, fetcher);
+  return data;
+};
+```
+
+### SWR Data Fetching
+
+```tsx
+// ✅ Good - Dedicated fetcher functions
+const fetchUser = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("Failed to fetch user");
+  return res.json();
+};
+
+const fetchSeries = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error("Failed to fetch series");
+  return res.json();
+};
+
+// ✅ Good - Using SWR with fetcher
+const useUser = (userId: string) => {
+  const { data, error, isLoading } = useSWR(
+    userId ? `/api/users/${userId}` : null,
+    fetchUser,
+  );
+  return { user: data, error, isLoading };
+};
+
+// ✅ Good - Using SWR mutations for updates
+const useUpdateUser = () => {
+  const { trigger, isMutating } = useSWRMutation(
+    "/api/user",
+    updateUserFetcher,
+  );
+  return { updateUser: trigger, isUpdating: isMutating };
+};
+
+// ❌ Bad - Direct fetch without SWR
+const useUser = (userId: string) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(`/api/users/${userId}`)
+      .then((res) => res.json())
+      .then(setUser)
+      .finally(() => setLoading(false));
+  }, [userId]);
+
+  return { user, loading };
+};
+
+// ❌ Bad - Inline fetching without dedicated fetcher
+const useUser = (userId: string) => {
+  const { data } = useSWR(`/api/users/${userId}`, (url) =>
+    fetch(url).then((r) => r.json()),
+  );
+  return data;
+};
+```
+
+### When NOT to Use Hooks
+
+```tsx
+// ✅ Good - Regular function
+const getSorted = (items: string[]) => items.slice().sort();
+
+// ❌ Bad - Unnecessary hook
+const useSorted = (items: string[]) => items.slice().sort();
+```
+
+### Server Components & Actions
+
+```tsx
+// ✅ Good
+import "server-only";
+
+export async function deleteUser(data: any) {
+  "use server";
+  // Server action logic here
+}
+
+// ❌ Bad
+("use server"); // At file level - exposes everything
+
+export function getSecret() {
+  return "secret"; // Now exposed as server action!
+}
+```

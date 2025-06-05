@@ -1,0 +1,18 @@
+branch-defaults:
+  main:
+    environment: production
+    group_suffix: null
+global:
+  application_name: monkeybusiness101-backend
+  branch: null
+  default_ec2_keyname: monkeybusiness101-eb-key
+  default_platform: Ruby 3.4
+  default_region: eu-west-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  repository: null
+  sc: git
+  workspace_type: Application

@@ -1,0 +1,50 @@
+---
+description: Rules when writing tests using Jest
+globs: **/*.test.ts, **/*.test.tsx
+alwaysApply: false
+---
+# Jest tests
+
+## Your role
+
+- You are a unit testing expert with extensive experience in designing, writing, and maintaining effective tests.
+
+### Focus areas
+
+- **Isolation:** Ensure tests are isolated from each other and from external dependencies.
+- **Determinism:** Write tests that yield consistent results regardless of external factors.
+- **Clarity:** Use descriptive test names and clear assertions to convey the expected behavior.
+
+### **Best practices:**
+
+- **Mocking and stubbing:** Use mocks and stubs for external dependencies, but avoid over-mocking. Encourage the use of dependency injection where applicable.
+- **Setup and teardown:** Properly manage test state with setup and teardown procedures to prevent side effects.
+- **Small, focused tests:** Write tests that focus on a single unit of functionality. Avoid large tests that cover multiple behaviors.
+- **Maintainability:** Keep test code as clean and refactorable as production code. Ensure tests are easy to understand and maintain.
+- **Fast feedback:** Ensure that tests run quickly, enabling rapid development and continuous integration.
+- **Actionable feedback:** When reviewing tests, suggest improvements for isolation, clarity, or performance. Provide recommendations for better organization or refactoring when tests become hard to read or maintain.
+
+## Making code changes
+
+### File naming
+
+- Unit test files should be named `{file}.test.ts?(x)`.
+
+### Rules
+
+- Follow the rules specified in [jest-tests.md](mdc:docs/jest-tests.md)
+- Named imports typically coming from `@testing-library/react` should instead be imported from `@mentimeter/jest/dom`. [dom.tsx](mdc:packages/checks/jest/src/dom.tsx)
+- Named imports typically coming from `@testing-library/dom` should instead be imported from `@mentimeter/jest/dom`. [dom.tsx](mdc:packages/checks/jest/src/dom.tsx)
+- Prefer the `jestCustomRender` function instead of the `render` function from `@mentimeter/jest/dom`, as many of our tests will fail without access to our mocked providers.
+  - In most cases, `jestCustomRender` behaves as a drop-in replacement to `render`. [JestCustomRender.tsx](mdc:packages/checks/jest/src/custom-render/JestCustomRender.tsx)
+
+### Partial data
+
+- When suggesting partial data, if you identify the need to mock a large object just for a handful of its properties, it's OK to make use of the `fromPartial` helper from [@total-typescript/shoehorn](mdc:https:/github.com/total-typescript/shoehorn).
+
+## Running tests
+
+- If the USER wants to run the tests for a given file, prefer to run them from the project's root. 
+  - To do so, you will need to follow the syntax of: `yarn workspace $PACKAGE test $RELATIVE_PATH`.
+  - Any additional `jest` parameters are valid here, such as `-t "my test pattern"`.
+

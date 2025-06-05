@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/Layout.astro";
+import background from "../assets/background.svg";
+---
+
+<Layout>
+  <img id="background" src={background.src} alt="" fetchpriority="high" />
+  <main>
+    <h1>about me</h1>
+    <p>
+      welcome to my about page! this is where you can learn more about me and my
+      background.
+    </p>
+  </main>
+</Layout>
+
+<style>
+  #background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(100px);
+  }
+
+  main {
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  h1 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  p {
+    line-height: 1.6;
+    color: #666;
+  }
+</style>
