@@ -18,7 +18,7 @@
 2. **Critique**: Have AI review and improve the plan
 3. **Reason**: Explain step-by-step how to implement before writing any code
 4. **Approval** Wait for approval before writing any code
-5. **Testing** Create a failing test before implementing any real code
+5. **Testing** Treat the tests as integration tests. Never mock to make them just pass
 5. **Code**: Only then proceed with actual implementation. Make the test pass
 
 This approach ensures better code quality, fewer bugs, and more maintainable solutions. 
