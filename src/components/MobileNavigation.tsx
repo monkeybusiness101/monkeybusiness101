@@ -13,6 +13,7 @@ const navigationItems = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About Me" },
   { href: "/work", label: "Work" },
+  { href: "/workout", label: "Workout" },
   { href: "/store", label: "Store" },
 ];
 
