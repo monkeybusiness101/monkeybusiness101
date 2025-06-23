@@ -69,17 +69,13 @@ function formatSpeed(metersPerSecond: number, unit: "metric" | "imperial" = "met
 }
 
 export function StravaActivities() {
-  const [activities, setActivities] = useState<StravaActivity[]>([]);
-  const [athlete, setAthlete] = useState<StravaAthlete | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    loadStravaData();
-  }, []);
+  const [athlete, setAthlete] = useState<StravaAthlete | null>(null);
+  const [activities, setActivities] = useState<StravaActivity[]>([]);
 
   const handleConnectStrava = () => {
-    window.location.href = '/auth/strava';
+    window.location.href = "/auth/strava";
   };
 
   const loadStravaData = async () => {
@@ -87,7 +83,9 @@ export function StravaActivities() {
     setError(null);
     
     try {
-      const response = await fetch('/api/strava/activities?per_page=10&page=1');
+      // Use external Vercel API - replace with your deployed URL
+      const API_BASE_URL = 'https://your-strava-api.vercel.app';
+      const response = await fetch(`${API_BASE_URL}/api/strava/activities?per_page=10&page=1`);
       
       if (!response.ok) {
         const errorData = await response.json();
