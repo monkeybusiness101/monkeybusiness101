@@ -14,6 +14,7 @@ const navigationItems = [
   { href: "/about", label: "About Me" },
   { href: "/work", label: "Work" },
   { href: "/workout", label: "Workout" },
+  { href: "/reading", label: "Reading" },
   { href: "/store", label: "Store" },
 ];
 

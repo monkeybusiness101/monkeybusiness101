@@ -1,0 +1,14 @@
+{
+  "name": "reading-api",
+  "version": "1.0.0",
+  "description": "Reading list management API",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [
+    "reading",
+    "api",
+    "vercel"
+  ],
+  "author": "Max Forssén",
+  "license": "MIT"
+}

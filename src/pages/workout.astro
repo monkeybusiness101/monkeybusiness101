@@ -7,16 +7,8 @@ import { StravaActivities } from "../components/StravaActivities.tsx";
 <Layout>
   <img id="background" src={background.src} alt="" fetchpriority="high" />
   <main>
-    <div class="container">
-      <h1>workout</h1>
-      <p>
-        Welcome to my workout page! Connect your Strava account to view your
-        fitness activities and track your progress.
-      </p>
-
-      <div class="strava-section">
-        <StravaActivities client:load />
-      </div>
+    <div class="strava-section">
+      <StravaActivities client:load />
     </div>
   </main>
 </Layout>

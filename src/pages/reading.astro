@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { ReadingList } from "../components/ReadingList.tsx";
+---
+
+<Layout title="Reading List - Max Forssén">
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Reading List</h1>
+      <p class="text-gray-600">
+        Articles, resources, and interesting finds from around the web.
+      </p>
+    </div>
+
+    <ReadingList client:load />
+  </main>
+</Layout>

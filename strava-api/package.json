@@ -2,10 +2,7 @@
   "name": "strava-api",
   "version": "1.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "vercel dev",
-    "build": "vercel build"
-  },
+  "scripts": {},
   "dependencies": {
     "@vercel/node": "^3.0.21"
   },

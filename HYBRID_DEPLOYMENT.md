@@ -9,15 +9,28 @@ Your project is now configured for a **hybrid deployment**:
 ```
 ┌─────────────────┐    CORS-enabled     ┌──────────────────┐
 │  GitHub Pages   │ ─────────────────→  │  Vercel API      │
-│  (Static Site)  │    API requests     │  (Strava Service)│  
+│  (Static Site)  │    API requests     │  (Multi-Service) │  
 │                 │                     │                  │
 │ - Home          │                     │ - /api/strava/   │
 │ - About         │                     │   activities     │
-│ - Work          │                     │ - Environment    │
-│ - Workout       │                     │   Variables      │
-│ - Store         │                     │ - CORS Headers   │
-└─────────────────┘                     └──────────────────┘
+│ - Work          │                     │ - /api/reading/  │
+│ - Workout       │                     │   items          │
+│ - Reading       │                     │ - Environment    │
+│ - Store         │                     │   Variables      │
+└─────────────────┘                     │ - CORS Headers   │
+                                        │ - Data Storage   │
+                                        └──────────────────┘
 ```
+
+## Features
+
+This hybrid deployment provides:
+
+1. **Static Site**: Fast loading, CDN-distributed main website
+2. **Dynamic API**: Server-side Strava integration with secure credential storage
+3. **Persistent Reading List**: Cloud-based storage for your reading list items
+4. **CORS Support**: Proper cross-origin handling for API requests
+5. **Environment Variables**: Secure credential management on Vercel
 
 ## Part 1: Deploy Strava API to Vercel
 
@@ -55,13 +68,25 @@ STRAVA_REFRESH_TOKEN=0c10bd23a988d97a0e409f8b7fa2e02c611526b0
 Your Vercel API will be available at:
 ```
 https://your-strava-api.vercel.app/api/strava/activities
+https://your-strava-api.vercel.app/api/reading/items
 ```
+
+#### Available Endpoints
+
+**Strava Integration:**
+- `GET /api/strava/activities` - Fetch recent Strava activities and athlete data
+
+**Reading List Management:**
+- `GET /api/reading/items` - Get all reading list items
+- `POST /api/reading/items` - Add new reading list item
+- `PUT /api/reading/items` - Update existing item (toggle read status, add comment)
+- `DELETE /api/reading/items?id={itemId}` - Delete reading list item
 
 ## Part 2: Update Main Site for GitHub Pages
 
-### 1. Update API URL
+### 1. Update API URLs
 
-Edit `src/components/StravaActivities.tsx` and replace:
+Edit both `src/components/StravaActivities.tsx` and `src/components/ReadingList.tsx` and replace:
 ```typescript
 const API_BASE_URL = 'https://your-strava-api.vercel.app';
 ```
